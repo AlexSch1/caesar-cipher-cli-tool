@@ -1,6 +1,5 @@
 module.exports = (value) => {
-    if(value instanceof Number)
-        value = value.valueOf();
+  if (value instanceof Number) value = value.valueOf();
 
-    return  isFinite(value) && value === parseInt(value, 10);
-}
+  return isFinite(value) && value === parseInt(value, 10);
+};

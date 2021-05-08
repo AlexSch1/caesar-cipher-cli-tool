@@ -2,9 +2,7 @@ const { Transform, pipeline } = require('stream');
 const fs = require('fs');
 const cipher = require('../src/cipher');
 
-class CaesarCipherTransformPipe extends (
-  Transform
-) {
+class CaesarCipherTransformPipe extends Transform {
   constructor(props, shift, action) {
     super(props);
     this.shift = shift;
@@ -26,7 +24,6 @@ class CaesarCipherTransformPipe extends (
   }
 }
 
-
 module.exports.stdStream = (shift, action) => {
   process.stdin.setEncoding('utf8');
   pipeline(
@@ -43,15 +40,17 @@ module.exports.stdStream = (shift, action) => {
 
 module.exports.cipherStream = (inputPath, outputPath, s, a) => {
   pipeline(
-      inputPath ? fs.createReadStream(inputPath) : process.stdin,
-      new CaesarCipherTransformPipe({}, s, a),
-      outputPath ? fs.createWriteStream(outputPath, { flags: 'a' }) : process.stdout,
-      (err) => {
-        if (err) {
-          process.stderr.write(err);
-        }
-      },
+    inputPath ? fs.createReadStream(inputPath) : process.stdin,
+    new CaesarCipherTransformPipe({}, s, a),
+    outputPath
+      ? fs.createWriteStream(outputPath, { flags: 'a' })
+      : process.stdout,
+    (err) => {
+      if (err) {
+        process.stderr.write(err);
+      }
+    },
   );
-}
+};
 
 module.exports.CaesarCipherTransformPipe = CaesarCipherTransformPipe;
