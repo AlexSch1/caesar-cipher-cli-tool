@@ -1,35 +1,33 @@
-const { ALPHABET, ALPHABET_LENGTH } = require('./constants/constants');
+const { ALPHABET_LENGTH } = require('./constants/constants');
 const alphabetPosition = require('./utils/alphabetPosition');
+const getCipherLetter = require('./utils/getCipherLetter');
 
+function cipher(text, shift, encode) {
+    const res = [];
 
+    for (const letter of text) {
+        const indexLetterInAlphabet = +alphabetPosition(letter);
 
-const decodeStr = 'abc' //
+        if (!indexLetterInAlphabet || indexLetterInAlphabet < 0) {
+            res.push(letter);
+            continue;
+        }
 
-let shift = 1;
-const res = [];
+        let cipherIndex = encode ?
+            indexLetterInAlphabet + shift :
+            indexLetterInAlphabet - shift;
 
-for (const iterator of decodeStr) {
-    const indexLetterInAlphabet = alphabetPosition(iterator);
+        if (cipherIndex <= 0) {
+            cipherIndex = 26 + cipherIndex
+        }
+        if (cipherIndex > ALPHABET_LENGTH) {
+            cipherIndex = cipherIndex % ALPHABET_LENGTH;
+        }
 
-    if (!indexLetterInAlphabet || indexLetterInAlphabet < 0) {
-        res.push(iterator);
-        continue
+        res.push(getCipherLetter(letter, cipherIndex));
     }
 
-    let cipherIndex = +indexLetterInAlphabet + shift;
-
-    if (cipherIndex > ALPHABET_LENGTH) {
-        cipherIndex = cipherIndex % ALPHABET_LENGTH;
-    }
-
-
-    if (iterator.match(/[A-Z]/)) {
-        res.push(ALPHABET[cipherIndex]);
-    } else if (iterator.match(/[a-z]/)) {
-        res.push(ALPHABET[cipherIndex].toLowerCase());
-    } else {
-        res.push(iterator);
-    }
+    return res.join('');
 }
 
-console.log(res.join(""));
+module.exports = cipher;
