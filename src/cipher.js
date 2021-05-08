@@ -2,7 +2,13 @@ const { ALPHABET_LENGTH } = require('./constants/constants');
 const alphabetPosition = require('./utils/alphabetPosition');
 const getCipherLetter = require('./utils/getCipherLetter');
 
-function cipher(text, shift, encode) {
+/*
+* @param text:string - required
+* @param shift:number - required - positive integer number
+* @param encode:boolean - required
+* @returns string
+* */
+function cipher({ text, shift, encode }) {
     const res = [];
 
     for (const letter of text) {
