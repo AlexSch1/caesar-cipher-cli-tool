@@ -1,7 +1,10 @@
-const { Transform } = require('stream');
+const { Transform, pipeline } = require('stream');
+const chalk = require('chalk');
 const cipher = require('../src/cipher');
 
-class CaesarCipherTransformPipe extends Transform {
+class CaesarCipherTransformPipe extends (
+  Transform
+) {
   constructor(props, shift, action) {
     super(props);
     this.shift = shift;
@@ -10,11 +13,13 @@ class CaesarCipherTransformPipe extends Transform {
 
   _transform(chunk, encoding, callback) {
     try {
+      console.log('cipherText')
+
       let text = chunk.toString('utf8');
       const cipherText = cipher({
         text,
         shift: this.shift,
-        action: this.action,
+        encode: this.action,
       });
       callback(null, cipherText);
     } catch (err) {
@@ -23,4 +28,23 @@ class CaesarCipherTransformPipe extends Transform {
   }
 }
 
-module.exports = CaesarCipherTransformPipe;
+
+module.exports.stdStream = (shift, action) => {
+  process.stdin.setEncoding('utf8');
+  pipeline(
+    process.stdin,
+    new CaesarCipherTransformPipe({}, shift, action),
+    process.stdout,
+    (err) => {
+      if (err) {
+        process.stderr.write(err);
+      }
+    },
+  );
+};
+
+module.exports.cipherStream = (i, o) => {
+
+}
+
+module.exports.CaesarCipherTransformPipe = CaesarCipherTransformPipe;
