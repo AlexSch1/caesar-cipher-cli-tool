@@ -9,13 +9,13 @@ const getCipherLetter = require('./utils/getCipherLetter');
  * @returns string
  * */
 function cipher({ text, shift, encode }) {
-  const res = [];
+  let res = '';
 
   for (const letter of text) {
     const indexLetterInAlphabet = +alphabetPosition(letter);
 
     if (!indexLetterInAlphabet || indexLetterInAlphabet < 0) {
-      res.push(letter);
+      res += letter;
       continue;
     }
 
@@ -30,10 +30,10 @@ function cipher({ text, shift, encode }) {
       cipherIndex = cipherIndex % ALPHABET_LENGTH;
     }
 
-    res.push(getCipherLetter(letter, cipherIndex));
+    res += getCipherLetter(letter, cipherIndex);
   }
 
-  return res.join('');
+  return res;
 }
 
 module.exports = cipher;
