@@ -5,5 +5,7 @@ module.exports.isIntegerNum = (value) => {
 };
 
 module.exports.isNAN = (value) => {
-  return (value instanceof Number||typeof value === 'number') && !isNaN(value);
-}
+  return (
+    (value instanceof Number || typeof value === 'number') && !isNaN(value)
+  );
+};

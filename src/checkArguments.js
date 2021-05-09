@@ -2,7 +2,7 @@ const getPathToFile = require('./utils/getPathToFile');
 const fileExist = require('./utils/fileExist');
 const { stdStream, cipherStream } = require('../src/streams');
 const errorProcessing = require('./utils/errorProcessing');
-const {isIntegerNum, isNAN} = require('./utils/checkNumber');
+const { isIntegerNum, isNAN } = require('./utils/checkNumber');
 
 module.exports = (arguments) => {
   const { s, i, o, a } = arguments;
