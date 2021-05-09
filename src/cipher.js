@@ -24,7 +24,7 @@ function cipher({ text, shift, encode }) {
       : indexLetterInAlphabet - shift;
 
     if (cipherIndex <= 0) {
-      cipherIndex = 26 + cipherIndex;
+      cipherIndex = ALPHABET_LENGTH + cipherIndex;
     }
     if (cipherIndex > ALPHABET_LENGTH) {
       cipherIndex = cipherIndex % ALPHABET_LENGTH;
