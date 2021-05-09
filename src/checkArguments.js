@@ -2,23 +2,23 @@ const getPathToFile = require('./utils/getPathToFile');
 const fileExist = require('./utils/fileExist');
 const { stdStream, cipherStream } = require('../src/streams');
 const errorProcessing = require('./utils/errorProcessing');
-const checkNumber = require('./utils/checkNumber');
+const {isIntegerNum, isNAN} = require('./utils/checkNumber');
 
 module.exports = (arguments) => {
   const { s, i, o, a } = arguments;
 
-  if (!s) {
-    errorProcessing('-s обязательный параметр');
+  if (!s || !isNAN(s)) {
+    errorProcessing('-s не указан, или использованы ошибочные значения');
   }
-  if (!checkNumber(+s)) {
-    errorProcessing('-s не верное значение');
+  if (!isIntegerNum(+s)) {
+    errorProcessing('-s неверное значение, значение должно быть целым числом');
   }
   if (!a) {
     errorProcessing('-a обязательный параметр');
   }
   if (a !== 'decode' && a !== 'encode') {
     errorProcessing(
-      '-a не верное значение, допустимые значения "decode", "encode"',
+      '-a неверное значение, допустимые значения "decode", "encode"',
     );
   }
 
