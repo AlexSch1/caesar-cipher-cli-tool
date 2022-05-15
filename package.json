@@ -1,0 +1,27 @@
+{
+  "name": "caesar-cipher-cli-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "prettier": "2.2.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "lint:prettier:fix": "prettier --write \"**/*.*\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexSch1/caesar-cipher-cli-tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexSch1/caesar-cipher-cli-tool/issues"
+  },
+  "homepage": "https://github.com/AlexSch1/caesar-cipher-cli-tool#readme"
+}
